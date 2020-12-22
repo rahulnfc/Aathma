@@ -1,0 +1,46 @@
+<%-- 
+    Document   : db_create_account
+    Created on : Feb 8, 2020, 11:56:53 AM
+    Author     : MY PC
+--%>
+<%@page import="connector.db_connection"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Create Account Database</title>
+    </head>
+    <body>
+        <%
+            
+            String status;
+            String radio=request.getParameter("optradio");
+        String User=request.getParameter("username");
+       
+        if(radio.equals("donor"))
+        {
+            status="2";
+        }
+        else
+        {
+             status="3";
+        }
+        String Email=request.getParameter("email");
+        String Password=request.getParameter("pwd1");
+        
+        db_connection db=new db_connection();
+        String str="insert into create_account values(?,?,?,?)";
+        PreparedStatement ps=db.con.prepareStatement(str);
+        ps.setString(1,User);
+        ps.setString(2,Email);
+        ps.setString(3,Password);
+        ps.setString(4,status);
+        int res=ps.executeUpdate();
+        response.sendRedirect("index.jsp");
+        %>
+    </body>
+</html>

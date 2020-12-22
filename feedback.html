@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Feedback</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+      function Confirm() {
+            alert("Feedback Send Successfully..!");
+            return true;
+    }
+  </script>
+
+    </head>
+    <body>
+        <jsp:include page="commonpage.jsp"></jsp:include>
+        
+        <div style="border:1px solid black;background-color: #747A98;width: 130%px;height:65px; color:white">
+            <h2 align="center"style="color: white">Send Your Feedback</h2><br>
+        </div><br>
+                <div class="container">
+                    <form action="db_feedback.jsp">
+       <div class="form-group">
+      <label for="email">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter Your Name" name="name" >
+       </div><br>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" placeholder="Enter email" name="email">
+    </div><br>
+    <div class="form-group">
+      <label for="subject" >Subject:</label>
+      <input type="text" class="form-control" placeholder="Enter subject" name="subject">
+    </div><br>
+      <div class="form-group">
+      <label for="comment">Feedback:</label>
+      <textarea class="form-control" rows="5" placeholder="Enter your feedback"  name="feedback"></textarea>
+      </div><br>
+      <div>
+             <a href="index.html"><b>Back</b></a>
+             <button type="submit" class="btn btn-default" onclick="Confirm();" style="background-color:#747A98;margin-left:500px;color:white">Submit</button><br><br>
+      </div>
+  </form>             
+</div>
+    </body>
+</html>

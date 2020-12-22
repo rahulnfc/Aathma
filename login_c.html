@@ -1,0 +1,59 @@
+<%-- 
+    Document   : login_c
+    Created on : Feb 6, 2020, 2:16:10 PM
+    Author     : MY PC
+--%>
+<%@page import="connector.db_connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Login Controler</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+
+        <%
+            String email = request.getParameter("email");
+            String pwd1 = request.getParameter("pwd");
+            HttpSession sn=request.getSession();
+            sn.setAttribute("email",email);
+
+            db_connection db=new db_connection();
+            Statement st = db.con.createStatement();
+            String str = "select * from create_account where email='" + email + "' and password='" + pwd1 + "'";
+            ResultSet rs = st.executeQuery(str);
+
+            try {
+
+                if (rs.next()) {
+
+                    if (rs.getString("email").equals(email) && rs.getString("password").equals(pwd1) && rs.getString("status").equals("2")) {
+
+                        response.sendRedirect("Donor/donor_home.jsp");
+                    } else if (email.equals("admin123@gmail.com") && pwd1.equals("admin")) {
+                        response.sendRedirect("Admin/admin_home.jsp");
+                    } else if (rs.getString("email").equals(email) && rs.getString("password").equals(pwd1) && rs.getString("status").equals("3")) {
+
+                        response.sendRedirect("Organization/organization_home.jsp");
+                    } 
+                    
+                    
+                }else
+                    {
+                        response.sendRedirect("index.jsp?error=1&id=#abc");
+                    }
+                }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        %>
+    </body>
+</html>

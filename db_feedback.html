@@ -1,0 +1,36 @@
+<%-- 
+    Document   : db_feedback
+    Created on : Feb 26, 2020, 4:23:24 PM
+    Author     : MY PC
+--%>
+<%@page import="connector.db_connection"%>
+<%@page import="org.apache.catalina.User"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Feedback Database</title>
+    </head>
+    <body>
+         <%
+        String Name=request.getParameter("name");
+        String Email=request.getParameter("email");
+        String Subject=request.getParameter("subject");
+        String Feedback=request.getParameter("feedback");
+        
+        db_connection db=new db_connection();
+        String str="insert into feedback values(?,?,?,?)";
+        PreparedStatement ps=db.con.prepareStatement(str);
+        ps.setString(1,Name);
+        ps.setString(2,Email);
+        ps.setString(3,Subject);
+        ps.setString(4,Feedback);
+        ps.executeUpdate();
+       response.sendRedirect("index.jsp");
+        %>
+    </body>
+</html>
